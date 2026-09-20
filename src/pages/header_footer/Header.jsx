@@ -2,7 +2,7 @@ import useToggle from "../../hooks/useToggle.jsx";
 import { useEffect } from "react";
 
 export default function Header() {
-    const [darkMode, toggleDarkMode] = useToggle(false);
+    const [darkMode, toggleDarkMode] = useToggle(localStorage.getItem("pokedex-theme") === "dark");
 
     useEffect(() => {
         if (darkMode) {
@@ -12,6 +12,7 @@ export default function Header() {
             document.body.classList.add("white");
             document.body.classList.remove("dark");
         }
+        localStorage.setItem("pokedex-theme", darkMode ? "dark" : "light");
 
     }, [darkMode]);
 

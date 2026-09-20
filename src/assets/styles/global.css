@@ -19,6 +19,11 @@ body.dark .site-header, body.dark .search-field, body.dark .pokemon-card, body.d
 body.dark .hero-section, body.dark .collection-section { border-color: #3b5141; }
 body.dark .hero-description, body.dark .card-stats, body.dark .site-footer, body.dark .search-field input { color: #b8c8bb; }
 body.dark .pokemon-art { background: #304538; }
+body.dark .page-button { color: #d5e2d8; }
+body.dark .page-button:hover:not(:disabled) { color: #ffffff; }
+body.dark .profile-page { color: #f6f5ef; }
+body.dark .back-link { color: #b8c8bb; }
+body.dark .profile-stats strong { color: #f6f5ef; }
 
 .app-shell { min-height: 100vh; background: #f6f5ef; }
 .site-header, .main-content, .site-footer { max-width: 1240px; margin: 0 auto; }
