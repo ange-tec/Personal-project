@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 
-export default function usePokemonList() {
+export default function usePokemonList(search = "") {
     const [pokemonList, setPokemonList] = useState([]);
+    const [allPokemon, setAllPokemon] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isSearchLoading, setIsSearchLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [searchError, setSearchError] = useState(false);
     const [page, setPage] = useState(1);
 
     // Système de Pagination
@@ -31,5 +34,29 @@ export default function usePokemonList() {
         fetchPokemonList();
     }, [url]);
 
-    return { pokemonList, setPokemonList, page, setPage, isLoading, error };
+    useEffect(() => {
+        const fetchAllPokemon = async () => {
+            try {
+                const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=2000");
+                if (!response.ok) throw new Error("Unable to load the full Pokemon index");
+                const data = await response.json();
+                setAllPokemon(data.results);
+            } catch (error) {
+                console.error('Erreur:', error);
+                setSearchError(true);
+            } finally {
+                setIsSearchLoading(false);
+            }
+        };
+        fetchAllPokemon();
+    }, []);
+
+    return {
+        pokemonList: search.trim() ? allPokemon : pokemonList,
+        page,
+        setPage,
+        isLoading,
+        isSearchLoading,
+        error: search.trim() ? searchError : error,
+    };
 }

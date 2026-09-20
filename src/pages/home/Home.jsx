@@ -7,15 +7,14 @@ import usePokemonList from "../../hooks/usePokemonList.jsx";
 import useSearch from "../../hooks/useSearch.jsx";
 
 export default function Home() {
-    const { pokemonList, page, setPage, isLoading, error } = usePokemonList();
-
     const { search, setSearch } = useSearch();
+    const { pokemonList, page, setPage, isLoading, isSearchLoading, error } = usePokemonList(search);
 
     const filteredPokemon = useMemo(() => pokemonList.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(search.trim().toLowerCase())
     ), [pokemonList, search]);
 
-    if (isLoading) return <Spinner />;
+    if (isLoading || (search.trim() && isSearchLoading)) return <Spinner />;
 
     return (
         <div className="app-shell">
@@ -36,7 +35,7 @@ export default function Home() {
                             <p className="eyebrow">The collection</p>
                             <h2>Pokemon index</h2>
                         </div>
-                        <span className="page-count">Page {page}</span>
+                        <span className="page-count">{search.trim() ? "All Pokemon" : `Page ${page}`}</span>
                     </div>
 
                     <label className="search-field">
@@ -62,7 +61,7 @@ export default function Home() {
                         <p className="message-panel">No Pokemon match “{search}”.</p>
                     )}
 
-                    <nav className="pagination" aria-label="Pokemon pages">
+                    {!search.trim() && <nav className="pagination" aria-label="Pokemon pages">
                         <button type="button" className="page-button" disabled={page === 1} onClick={() => setPage(page - 1)}>
                             <span aria-hidden="true">←</span> Previous
                         </button>
@@ -70,7 +69,7 @@ export default function Home() {
                         <button type="button" className="page-button page-button-next" onClick={() => setPage(page + 1)}>
                             Next <span aria-hidden="true">→</span>
                         </button>
-                    </nav>
+                    </nav>}
                 </section>
             </main>
             <Footer />
