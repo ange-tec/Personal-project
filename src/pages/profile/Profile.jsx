@@ -3,6 +3,7 @@ import usePokemonDetails from "../../hooks/usePokemonDetails.jsx";
 import { Link } from "react-router-dom";
 import Header from "../header_footer/Header.jsx";
 import Footer from "../header_footer/Footer.jsx";
+import { playNavigationSound } from "../../utils/sounds.js";
 
 export default function Profile() {
 
@@ -14,7 +15,7 @@ export default function Profile() {
         <div className="app-shell">
             <Header />
             <main className="profile-page">
-                <Link className="back-link" to="/">← Back to index</Link>
+                <Link className="back-link" to="/" onClick={playNavigationSound}>← Back to index</Link>
                 <article className="profile-card">
                     <div className="profile-art">
                         <img src={pokemonDetails.sprites.other?.["official-artwork"]?.front_default || pokemonDetails.sprites.front_default} alt={pokemonDetails.name} />

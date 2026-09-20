@@ -5,6 +5,7 @@ import ListCard from "../../components/ListCard.jsx";
 import Spinner from "../../components/Spinner.jsx";
 import usePokemonList from "../../hooks/usePokemonList.jsx";
 import useSearch from "../../hooks/useSearch.jsx";
+import { playNavigationSound } from "../../utils/sounds.js";
 
 export default function Home() {
     const { search, setSearch } = useSearch();
@@ -62,11 +63,11 @@ export default function Home() {
                     )}
 
                     {!search.trim() && <nav className="pagination" aria-label="Pokemon pages">
-                        <button type="button" className="page-button" disabled={page === 1} onClick={() => setPage(page - 1)}>
+                        <button type="button" className="page-button" disabled={page === 1} onClick={() => { playNavigationSound(); setPage(page - 1); }}>
                             <span aria-hidden="true">←</span> Previous
                         </button>
                         <span className="page-number">{String(page).padStart(2, "0")}</span>
-                        <button type="button" className="page-button page-button-next" onClick={() => setPage(page + 1)}>
+                        <button type="button" className="page-button page-button-next" onClick={() => { playNavigationSound(); setPage(page + 1); }}>
                             Next <span aria-hidden="true">→</span>
                         </button>
                     </nav>}

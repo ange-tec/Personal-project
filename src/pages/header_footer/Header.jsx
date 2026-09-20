@@ -1,5 +1,6 @@
 import useToggle from "../../hooks/useToggle.jsx";
 import { useEffect } from "react";
+import { playNavigationSound } from "../../utils/sounds.js";
 
 export default function Header() {
     const [darkMode, toggleDarkMode] = useToggle(localStorage.getItem("pokedex-theme") === "dark");
@@ -18,7 +19,7 @@ export default function Header() {
 
     return (
         <header className="site-header">
-            <a className="brand" href="/">
+            <a className="brand" href="/" onClick={playNavigationSound}>
                 <span className="brand-ball" aria-hidden="true"><span /></span>
                 <span>Pokedex<span className="brand-dot">.</span></span>
             </a>
